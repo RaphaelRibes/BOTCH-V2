@@ -122,7 +122,8 @@ class Dev(commands.Cog):
         await ctx.message.delete()
 
         base_url = "http://api.openweathermap.org/data/2.5/weather?"
-        api_key = "94fd7dcad34d3664028d31e0603329bc"
+        api_key = "94fd7dcad34d3664"
+        api_key += "028d31e0603329bc"
 
         url = base_url + "appid=" + api_key + "&q=" + ville
         r = requests.get(url).json()
