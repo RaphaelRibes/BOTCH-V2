@@ -30,5 +30,45 @@ Le posteur et l'image en cours du sdlm passe sur le fichier de config parce que 
 - `poster_id`: id du poster du message original
 - `stars`: nombre de stars sur le message original
 
-## [`admin_old`](plugins/admin_old.py) -> [`admin`](plugins/admin.py)
-## [`broadcast_old`](plugins/broadcast_old.py) -> [`broadcast`](plugins/broadcast.py)
+## [`plugins/admin_old`](plugins/admin_old.py) -> [`plugins/admin`](plugins/admin.py)
+### Events:
+- [x] `on_raw_reaction_add` -> sert pour le report de message.
+    - à 3 ❗️: report le message
+    - à 7 ❗️: report le message et le supprime
+
+- [ ] `admin group`:
+  - [x] `shutdown`: arrête le bot
+  - [x] `info`: affiche des informations sur le bot
+  - [x] `clear_person <cible> (nombre_de_messages)`: supprime les messages une personne
+  - [X] `roles`: affiche les roles du serveur
+  - [ ] `mute`: mute un utilisateur
+  - [ ] `unmute`: unmute un utilisateur
+  - [ ] `ban`: ban un utilisateur
+  - [ ] `tempban`: tempban un utilisateur
+  - [ ] `unban`: unban un utilisateur
+  - [ ] `kick`: kick un utilisateur
+  - [ ] `warn`: warn un utilisateur
+  - [ ] `unwarn`: unwarn un utilisateur
+  - [ ] `case`: affiche les warns d'un utilisateur
+
+- [x] `channel`:
+  - [x] `block`: bloque un utilisateur l'accès à l'écriture sur un channel
+  - [x] `ban`: ban un utilisateur d'un channel
+  - [x] `clear`: remet les droits de l'utilisateur par défaut sur ce channel
+
+### Commands:
+## [`plugins/broadcast_old`](plugins/broadcast_old.py) -> [`plugins/broadcast`](plugins/broadcast.py)
+## [`DataBaseAccess`](DataBaseAccess.py) -> [`plugins/database`](plugins/database.py)
+Rien n'est à garder, on passe sur une db en ORM donc il faut juste faire des méthodes d'accès à la db.
+- [x] `get_member`: récupère les données un membre du serveur
+- [x] `get_sb_by_id`: récupère les données d'un message dans le starbotch par id
+- [x] `get_sb_by_stars`: récupère les données d'un message dans le starbotch par nombre de stars
+- [x] `create_sb`: rajoute un msg dans le starbotch
+## [`plugins/dev_old`](plugins/dev_old.py) -> [`plugins/dev`](plugins/broadcast.py)
+## [`plugins/errors_old`](plugins/errors_old.py) -> [`plugins/errors`](plugins/errors.py)
+## [`plugins/general_old`](plugins/general_old.py) -> [`plugins/dev`](plugins/general.py)
+## [`plugins/loops_old`](plugins/loops_old.py) -> [`plugins/loops`](plugins/loops.py)
+## [`plugins/memes_old`](plugins/memes_old.py) -> [`plugins/dev`](plugins/memes.py)
+## [`plugins/sdlm_old`](plugins/sdlm_old.py) -> [`plugins/sdlm`](plugins/sdlm_old.py)
+## [`plugins/starbotch_old`](plugins/starbotch_old.py) -> [`plugins/starbotch`](plugins/starbotch.py)
+## [`plugins/vocal_old`](plugins/vocal_old.py) -> [`plugins/vocal`](plugins/vocal.py)

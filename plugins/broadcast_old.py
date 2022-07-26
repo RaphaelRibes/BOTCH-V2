@@ -4,6 +4,7 @@ import package
 import json
 import main
 
+
 def make_broadcast_embed(package):
     embed = discord.Embed(
         title=package['title'],

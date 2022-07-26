@@ -5,6 +5,7 @@ import package
 import os
 import json
 import main
+from dev import ciblage
 
 
 def report_embed(message):  # Génère l'embed de report
@@ -143,14 +144,15 @@ class Admin(commands.Cog):
         msg = await ctx.channel.fetch_message(int(msg_id))
         await msg.edit(content=new_message)
 
-    @_admin_core.command(name="clear")
-    async def _clear_messages(self, ctx, cible, nbrmessages=100):
-        if "<@" not in cible: return await ctx.send("Aucune cible")
-        cible = cible[3:len(cible)-1]
-        cible = await ctx.guild.fetch_member(int(cible))
+    @_admin_core.command(name="clear_person", aliases=["clear_member", "cp", 'cm'])
+    async def _clear_member_messages(self, ctx, cible, nbrmessages=100):
+        cible = await ciblage(cible, ctx)
+        if cible is None:
+            return await ctx.send("Cette cible n'existe pas ou est incorecte")
+
         async for msg in cible.history(limit=nbrmessages):
-            await ctx.send(msg)
             await msg.delete()
+        await ctx.send(f"{cible.mention} a été nettoyé de {nbrmessages} messages")
 
     @_admin_core.command(name="roles")
     async def _show_roles(self, ctx):
