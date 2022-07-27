@@ -69,6 +69,7 @@ Rien n'est Ã  garder, on passe sur une db en ORM donc il faut juste faire des mÃ
 ## [`plugins/general_old`](plugins/general_old.py) -> [`plugins/dev`](plugins/general.py)
 ## [`plugins/loops_old`](plugins/loops_old.py) -> [`plugins/loops`](plugins/loops.py)
 ## [`plugins/memes_old`](plugins/memes_old.py) -> [`plugins/dev`](plugins/memes.py)
+## [`plugins/rolereact_old`](plugins/rolereact_old.py) -> [`plugins/rolereact`](plugins/rolereact.py)
 ## [`plugins/sdlm_old`](plugins/sdlm_old.py) -> [`plugins/sdlm`](plugins/sdlm_old.py)
 ## [`plugins/starbotch_old`](plugins/starbotch_old.py) -> [`plugins/starbotch`](plugins/starbotch.py)
 ## [`plugins/vocal_old`](plugins/vocal_old.py) -> [`plugins/vocal`](plugins/vocal.py)

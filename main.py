@@ -19,7 +19,7 @@ try:
             super().__init__(command_prefix='?', status=discord.Status.online,
                              activity=discord.Game("servir des bières"), intents=discord.Intents.all())
             self.test = test
-            self.DBA: DataBaseAccess = DataBaseAccess(connexion=sqlite3.connect("data/database.db"))
+            self.guild = None
             with open('config.json') as f: self.config = json.load(f)
 
     def main():
@@ -63,6 +63,8 @@ try:
         client.add_listener(on_ready)
 
         client.run(conf["token"] if not test else conf["token_test"])
+
+        await client.fetch_guild({True: 752932746053025865, False: 625330528588922882}[test])
 
 
     if __name__ == "__main__":
