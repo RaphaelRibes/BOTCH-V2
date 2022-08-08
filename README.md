@@ -34,8 +34,8 @@ Le posteur et l'image en cours du sdlm passe sur le fichier de config parce que 
 ### Events:
 - [x] `on_raw_reaction_add` -> sert pour le report de message.
     - à 3 ❗️: report le message
-    - à 7 ❗️: report le message et le supprime
-
+    - à 7 ❗️ on_ra: report le message et le supprime
+### Commands:
 - [ ] `admin group`:
   - [x] `shutdown`: arrête le bot
   - [x] `info`: affiche des informations sur le bot
@@ -56,14 +56,32 @@ Le posteur et l'image en cours du sdlm passe sur le fichier de config parce que 
   - [x] `ban`: ban un utilisateur d'un channel
   - [x] `clear`: remet les droits de l'utilisateur par défaut sur ce channel
 
-### Commands:
 ## [`plugins/broadcast_old`](plugins/broadcast_old.py) -> [`plugins/broadcast`](plugins/broadcast.py)
+On va passer d'un stockage des messages plutôt volatille dans une variable à stocké dans la db.
+### Events:
+- [ ] ~~`on_message`~~ -> `on_reaction_add`: plus ergonomique et plus rapide
+    - sdlm: envoit un message à tous les membres de l'inscrit dans la db du jdsdlm
+    - sb: envoit un message à tous les membres de l'inscrit dans la db du starbotch
+    - botchnews: envoit une annonce dans botchnews
+
+### Commands:
 ## [`DataBaseAccess`](DataBaseAccess.py) -> [`plugins/database`](plugins/database.py)
 Rien n'est à garder, on passe sur une db en ORM donc il faut juste faire des méthodes d'accès à la db.
 - [x] `get_member`: récupère les données un membre du serveur
-- [x] `get_sb_by_id`: récupère les données d'un message dans le starbotch par id
+- 
+- [x] `get_member_sb_by_id`: récupère les données d'un message dans le starbotch par id
 - [x] `get_sb_by_stars`: récupère les données d'un message dans le starbotch par nombre de stars
 - [x] `create_sb`: rajoute un msg dans le starbotch
+- [x] `modify_sb`: modifie le nombre de stars d'un msg dans le starbotch
+- [x] `remove_sb`: retire un msg du starbotch
+- 
+- [x] `create_broadcast`: rajoute un msg dans la db des messages à envoyer
+- [x] `modify_broadcast`: modifie un msg dans la db des messages à envoyer
+- [x] `get_broadcast`: récupère les msgs de la db des messages à envoyer d'un utilisateur
+- [x] `remove_broadcast`: retire un msg de la db des messages à envoyer
+<p>Je veux ensuite foutre le leaderboard du sdlm et sb dedans pour pas à avoir à reload les Cogs individuellement et
+reload uniquement celui là</p>
+
 ## [`plugins/dev_old`](plugins/dev_old.py) -> [`plugins/dev`](plugins/broadcast.py)
 ## [`plugins/errors_old`](plugins/errors_old.py) -> [`plugins/errors`](plugins/errors.py)
 ## [`plugins/general_old`](plugins/general_old.py) -> [`plugins/dev`](plugins/general.py)

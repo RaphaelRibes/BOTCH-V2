@@ -1,5 +1,7 @@
 from datetime import datetime
 import time
+
+import peewee
 from peewee import SqliteDatabase, Model, TextField, IntegerField, FloatField, BooleanField, DateField
 import os
 
@@ -22,8 +24,6 @@ class Membres(BaseTable):
     baned_until = DateField(null=True)  # %Y-%m-%d %H:%M:%S
     muted_until = DateField(null=True)  # %Y-%m-%d %H:%M:%S
     birthday = DateField(null=True)  # %Y-%m-%d
-    starbotch = TextField(default="")  # "c:123456789m:789456123|" c:channel_id m:message_id
-    points_sdlm = IntegerField(default=0)  # 0
     on_the_server = BooleanField(default=True)  # True
 
 
@@ -35,28 +35,23 @@ class Starbotch(BaseTable):
     stars = IntegerField(null=False, index=True)  # 42
 
 
-db.connect()
-db.create_tables([Membres])
-n = Membres.get(Membres.user_id == 354188969472163840)
-print(n.user_id)
-print(n.user_avatar)
-print(n.joined_at)
-print(n.last_message)
-print(n.last_message_date)
-print(n.xp)
-print(n.case)
-print(datetime.fromtimestamp(n.baned_until/1000).strftime("%Y-%m-%d %H:%M:%S"))
-print(datetime.fromtimestamp(n.muted_until/1000).strftime("%Y-%m-%d %H:%M:%S"))
-print(datetime.fromtimestamp(n.birthday/1000).strftime("%Y-%m-%d %H:%M:%S"))
-print(n.starbotch)
-print(n.points_sdlm)
-print(n.on_the_server)
-print("\n")
+class Broadcast(BaseTable):
+    user_id = IntegerField(null=False, index=True)  # 403993030572507136
+    message_id = IntegerField(null=False, index=True)  # 123456789
+    preview_message_id = IntegerField(null=False, index=True)  # 123456789
+    message = TextField(null=False)  # "C'est un message|attachment:https://media.discordapp.com/attachments/723652649244819466/997907022085374024/unknown.png"
+    attachment = TextField(null=True)  # https://media.discordapp.com/attachments/723652649244819466/997907022085374024/unknown.png
+    target = TextField(null=False)  # "sdlm" or "sb" or "botchnews"
 
-for n in Starbotch.select().where(Starbotch.stars == 2):
-    print(n.sb_message_id)
-    print(n.message_id)
-    print(n.channel_id)
-    print(n.posteur_id)
-    print(n.stars)
-    print("\n")
+
+class Sdlm(BaseTable):
+    user_id = IntegerField(null=False, index=True)  # 403993030572507136
+    points = IntegerField(default=0)  # 42
+    posteur = BooleanField(default=False, index=True)  # True
+    image_link = TextField(null=True)  # https://media.discordapp.com/attachments/723652649244819466/997907022085374024/unknown.png
+
+
+db.connect()
+db.create_tables([Sdlm])
+broadcast = Broadcast.select().where(Broadcast.user_id == 123)
+

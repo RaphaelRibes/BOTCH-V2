@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import package
 import json
 import main
 
@@ -28,9 +27,9 @@ class Broadcast(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if self.bot.test: return await self.bot.process_commands(message)  # Check si le bot est sous token test
-        if message.content == 'confirm' and message.author.id in self.broadcastconfirm:  # Le confirm est utilisé pour le système de broadcast
+        if message.content == 'confirm' and message.author.id in self.broadcastconfirm:  # Le confirm est utilis pour le système de broadcast
             if self.broadcastconfirm[message.author.id][0] == 'sdlm':
-                # Vérifie si la personne qui envoit le confirm est bien celui qui a envoyer le broadcast et si le message est bien enregistré.
+                # Vérifie si la personne qui envoit le confirm est bien celui qui a envoyé le broadcast et si le message est bien enregistré.
                 cant_send = 0
                 for user_id in self.bot.DBA.showall():  # Récupère l'id de toute les personnes du leaderboard
                     try:

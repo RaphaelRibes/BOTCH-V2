@@ -10,6 +10,7 @@ try:
     import asyncio
     from discord.ext import commands
     import sqlite3
+    from plugins.database import Database
 
     _plugins = ['database']
 
@@ -19,7 +20,7 @@ try:
             super().__init__(command_prefix='?', status=discord.Status.online,
                              activity=discord.Game("servir des bières"), intents=discord.Intents.all())
             self.test = test
-            self.DBA: DataBaseAccess = DataBaseAccess(connexion=sqlite3.connect("data/database.db"))
+            self.DBA: Database = Database
             with open('config.json') as f: self.config = json.load(f)
 
     def main():
