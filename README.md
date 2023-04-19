@@ -1,7 +1,7 @@
 # BOTCH-V2
-C'est parti pour retaper toute les fonctionnalités du botch v1.
-On part sur de l'optimisation du code et quelques nouveautées.
-On va descendre le code plugins par plugins:
+C'est parti pour retaper toutes les fonctionnalités du botch v1.
+On part sur de l'optimisation du code et quelques nouveautés.
+On va descendre le code plugins par plugins :
 
 ## Nouvelle gestion de la [`database`](plugins/database.py)
     La database utilisera peewee qui est une lib d'ORM.
@@ -13,7 +13,7 @@ On va descendre le code plugins par plugins:
 - `last_message`: contenu du dernier message  ***# "C'est un message|attachment:https://media(cdn).discordapp.net(com)/attachments/..."***
 - `last_message_timestamp`: timestamp du dernier message
 - `xp`: quantité d'xp que l'utilisateur a gagné
-- `case`: historique des conneries qu'à fait le boug (sous la forme "Warn:Reason(when)|Tempban:Reason(when)|Ban:Reason|Mute:Reason(when)|Kick:Reason(when)")
+- `case`: historique des conneries qu'a fait le boug (sous la forme "Warn:Reason(when)|Tempban:Reason(when)|Ban:Reason|Mute:Reason(when)|Kick:Reason(when)")
 - `baned_until`: date jusqu'à laquelle l'utilisateur est banni (sous la forme %Y-%m-%d %H:%M:%S... *font chier ces ricains*)
 - `muted_until`: date jusqu'à laquelle le membre est mute (sous la forme %Y-%m-%d %H:%M:%S... *putains de ricains*)
 - `birthday`: date d'anniversaire, il faudra que je fasse la conversion du la date chiante des ricains (%Y-%m-%d) au système normal (%d-%m-%Y)
