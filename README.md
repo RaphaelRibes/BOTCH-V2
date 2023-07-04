@@ -1,5 +1,5 @@
 # BOTCH-V2
-C'est parti pour retaper toute les fonctionnalités du botch v1.
+C'est parti pour retaper toutes les fonctionnalités du botch v1.
 On part sur de l'optimisation du code et quelques nouveautées.
 On va descendre le code plugins par plugins:
 
@@ -8,14 +8,14 @@ On va descendre le code plugins par plugins:
 > TLDR: Parce que j'ai envie de faire un truc propre et que j'ai appris des trucs depuis. Je résume tout en 3 points:
 
 petit warning, pleins de private jokes et autres trucs de la communauté du botch, si vous comprenez pas, c'est normal, je pige la moitié aussi.
-### Nouvelle gestion de la [`database`](plugins/database.py)
+### Nouvelle gestion de la database
 
 On passe tout sous peewee, une librairie d'ORM pour python. C'est plus propre et plus simple à utiliser.
-On remove complètement DataBaseAccess.py quitte a répéter un peu de code, c'est pas grave, c'est plus simple.
+On remove complètement DataBaseAccess.py quitte à répéter un peu de code, c'est pas grave, c'est plus simple.
 
 ### Discord.py est passé en 2.0
 
-Alors, c'est passé en 2.0 y'a un peu plus d'un an mais j'étais occupé à cram en médecine... donc 
+Alors, c'est passé en 2.0 y'a un peu plus d'un an, mais j'étais occupé à cram en médecine... donc 
 
 - slash command, c'est plus propre et plus simple à utiliser surtout pour les ~~monkeys~~ utilisateurs habituels du botch
 - des outils pour les modo directement dans discord (ban, kick, mute, etc...), dans des menus déroulants
@@ -78,8 +78,8 @@ Alors, c'est passé en 2.0 y'a un peu plus d'un an mais j'étais occupé à cram
 ## [`plugins/admin_old`](plugins/admin_old.py) -> [`plugins/admin`](plugins/admin.py)
 ### Events:
 - [ ] `on_raw_reaction_add` -> sert pour le report de message.
-    - à 3 ❗️: report le message
-    - à 7 ❗️: report le message et le supprime
+    - à 3 ❗️ : report le message
+    - à 7 ❗️ : report le message et le supprime
 ### Commands:
 - [ ] `admin group`:
   - [ ] `shutdown`: arrête le bot
@@ -103,12 +103,12 @@ Alors, c'est passé en 2.0 y'a un peu plus d'un an mais j'étais occupé à cram
 
 ## [`plugins/broadcast_old`](plugins/broadcast_old.py) -> [`plugins/broadcast`](plugins/broadcast.py)
 ### Events:
-- [ ] `on_message`: pour le msg de confirmation, être sur de pas ping 1k personne pour r
+- [ ] `on_message`: pour le msg de confirmation, être sûr de pas ping 1k personne pour r
 
 ### Commands:
 - [ ] `broadcast`:
   - [ ] `annonce`: envoie un message dans le channel d'annonce
-  - [ ] `sdlm`: envoie un message à tout les participant du jdsdlm
+  - [ ] `sdlm`: envoie un message à tous les participants du jdsdlm
   - [ ] `example`: envoie un message d'exemple
 
 ## [`plugins/dev_old`](plugins/dev_old.py) -> [`plugins/dev`](plugins/broadcast.py)
@@ -133,7 +133,7 @@ flm
 
 ## [`plugins/loops_old`](plugins/loops_old.py) -> [`plugins/loops`](plugins/loops.py)
 ### Events:
-- [ ] `do_a_backflip`: fait une backup de la database toutes les 24h
+- [ ] `do_a_backflip`: fait des backups de la database toutes les 24h
 
 ### Commands:
 - [ ] `loop`:
@@ -141,7 +141,7 @@ flm
   - [ ] `doabackup`: fait une backup de la database
   - 
 ## [`plugins/memes_old`](plugins/memes_old.py) -> [`plugins/memes`](plugins/memes.py)
-Je crois que ça se base sur l'api de reddit et vu que c'est finito on vera plus tard
+Je crois que ça se base sur l'api de reddit et vu que c'est finito, on verra plus tard
 ### Commands:
 - [ ] `meme`: affiche un meme aléatoire
 
@@ -187,4 +187,4 @@ Je crois que ça se base sur l'api de reddit et vu que c'est finito on vera plus
   - [ ] `random`: affiche un message random du starbotch
 
 ## [`plugins/vocal_old`](plugins/vocal_old.py) -> [`plugins/vocal`](plugins/vocal.py)
-Faut coder un bot music, on vera si ça tient tjrs. Ou je calerai un synthétiseur vocal dessus.
+Faut coder un bot music, on verra si ça tient tjrs. Ou je calerai un synthétiseur vocal dessus.
