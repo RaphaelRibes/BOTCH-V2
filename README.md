@@ -3,44 +3,89 @@ C'est parti pour retaper toute les fonctionnalités du botch v1.
 On part sur de l'optimisation du code et quelques nouveautées.
 On va descendre le code plugins par plugins:
 
-## Nouvelle gestion de la [`database`](plugins/database.py)
-    La database utilisera peewee qui est une lib d'ORM.
-    Comme ça on peut gérer toute la db sous forme d'objet et ça rendra le code bien plus lisible
+## MAIS POURQUOI T'AS TOUT REFAIT ?!
+
+> TLDR: Parce que j'ai envie de faire un truc propre et que j'ai appris des trucs depuis. Je résume tout en 3 points:
+
+petit warning, pleins de private jokes et autres trucs de la communauté du botch, si vous comprenez pas, c'est normal, je pige la moitié aussi.
+### Nouvelle gestion de la [`database`](plugins/database.py)
+
+On passe tout sous peewee, une librairie d'ORM pour python. C'est plus propre et plus simple à utiliser.
+On remove complètement DataBaseAccess.py quitte a répéter un peu de code, c'est pas grave, c'est plus simple.
+
+### Discord.py est passé en 2.0
+
+Alors, c'est passé en 2.0 y'a un peu plus d'un an mais j'étais occupé à cram en médecine... donc 
+
+- slash command, c'est plus propre et plus simple à utiliser surtout pour les ~~monkeys~~ utilisateurs habituels du botch
+- des outils pour les modo directement dans discord (ban, kick, mute, etc...), dans des menus déroulants
+- poffinage global de l'UI avec les bouttons et les menus déroulants dans les embeds
+
+### Liste de course
+
+- Pâtes crues
+- Sel 
+- Petits pois
+- Sauce à nems 
+- Huile 
+- Vinaigrette 
+- Curry 
+- Cube de volaille
+- Cumin 
+- Safran 
+- Ebly
+- Noix de muscade 
+- Semoule
+- Pois chiches
+- Poivre 
+- Spaghettis crues
+- Sauce tomate
+
+
+## Tables de la nouvelle database
 ### Membres:
-- `user_id`: l'id de l'utilisateur
-- `user_avatar`: lien de l'avatar de l'utilisateur
-- `joined_at_timestamp`: timestamp de la date d'arrrivée de l'utilisateur
-- `last_message`: contenu du dernier message  ***# "C'est un message|attachment:https://media(cdn).discordapp.net(com)/attachments/..."***
-- `last_message_timestamp`: timestamp du dernier message
-- `xp`: quantité d'xp que l'utilisateur a gagné
-- `case`: historique des conneries qu'à fait le boug (sous la forme "Warn:Reason(when)|Tempban:Reason(when)|Ban:Reason|Mute:Reason(when)|Kick:Reason(when)")
-- `baned_until`: date jusqu'à laquelle l'utilisateur est banni (sous la forme %Y-%m-%d %H:%M:%S... *font chier ces ricains*)
-- `muted_until`: date jusqu'à laquelle le membre est mute (sous la forme %Y-%m-%d %H:%M:%S... *putains de ricains*)
-- `birthday`: date d'anniversaire, il faudra que je fasse la conversion du la date chiante des ricains (%Y-%m-%d) au système normal (%d-%m-%Y)
-- `points_sdlm`: score du sdlm (par défaut 0)
-- `on_the_server`: boolean qui indique si l'utilisateur est sur le serveur (par défaut True)
+- `user_id` (IntegerField) : id de l'utilisateur
+- `user_avatar` (TextField) : lien de l'avatar de l'utilisateur
+- `joined_at` (DateField) : date d'arrrivée de l'utilisateur
+- `last_message` (TextField) : contenu du dernier message
+  - **### "\<text>(Blah blah blah)\<attachment>(https://...)"**
+- `last_message_date` (DateField) : date du dernier message
+- `xp` (IntegerField) : quantité d'xp que l'utilisateur a gagné
+- `birthday` (DateField) : date d'anniversaire
+
+### Case
+- `user_id` (IntegerField) : id de l'utilisateur
+- `case_id` (IntegerField) : id de la case
+- `case_date` (DateField) : date de la case
+- `case_reason` (TextField) : raison de la case
+- `case_mod` (IntegerField) : id du modérateur qui a fait la case
+- `case_type` (IntegerField) : type de la case (warn, mute, ban, kick, tempban)
+- `case_duration` (IntegerField) : durée de la case (en minutes) (0 si pas de durée)
+- `case_active` (BooleanField) : si la case est active ou non
 
 ### SDLM
-Le posteur et l'image en cours du sdlm passe sur le fichier de config parce que flemme
+- `user_id` (IntegerField) : l'id de l'utilisateur
+- `message_id` (IntegerField) : id du message dans le jdsdlm
+- `posteur` (BooleanField) : si l'utilisateur est le posteur du message
 
 ### Starbotch
-- `sb_message_id`: id du message dans le starbotch
-- `message_id`: id du message original
-- `channel_id`: id du channel du message original
-- `poster_id`: id du poster du message original
-- `stars`: nombre de stars sur le message original
+- `sb_message_id` (IntegerField) : id du message dans le starbotch
+- `message_id` (IntegerField) : id du message original
+- `channel_id` (IntegerField) : id du channel du message original
+- `posteur_id` (IntegerField) : id du poster du message original
+- `stars` (IntegerField)  : nombre de stars sur le message original
 
 ## [`plugins/admin_old`](plugins/admin_old.py) -> [`plugins/admin`](plugins/admin.py)
 ### Events:
-- [x] `on_raw_reaction_add` -> sert pour le report de message.
+- [ ] `on_raw_reaction_add` -> sert pour le report de message.
     - à 3 ❗️: report le message
-    - à 7 ❗️ on_ra: report le message et le supprime
+    - à 7 ❗️: report le message et le supprime
 ### Commands:
 - [ ] `admin group`:
-  - [x] `shutdown`: arrête le bot
-  - [x] `info`: affiche des informations sur le bot
-  - [x] `clear_person <cible> (nombre_de_messages)`: supprime les messages une personne
-  - [X] `roles`: affiche les roles du serveur
+  - [ ] `shutdown`: arrête le bot
+  - [ ] `info`: affiche des informations sur le bot
+  - [ ] `clear_person <cible> (nombre_de_messages)`: supprime les messages une personne
+  - [ ] `roles`: affiche les roles du serveur
   - [ ] `mute`: mute un utilisateur
   - [ ] `unmute`: unmute un utilisateur
   - [ ] `ban`: ban un utilisateur
@@ -51,43 +96,95 @@ Le posteur et l'image en cours du sdlm passe sur le fichier de config parce que 
   - [ ] `unwarn`: unwarn un utilisateur
   - [ ] `case`: affiche les warns d'un utilisateur
 
-- [x] `channel`:
-  - [x] `block`: bloque un utilisateur l'accès à l'écriture sur un channel
-  - [x] `ban`: ban un utilisateur d'un channel
-  - [x] `clear`: remet les droits de l'utilisateur par défaut sur ce channel
+- [ ] `channel group`:
+  - [ ] `block`: bloque un utilisateur l'accès à l'écriture sur un channel
+  - [ ] `ban`: ban un utilisateur d'un channel
+  - [ ] `clear`: remet les droits de l'utilisateur par défaut sur ce channel
 
 ## [`plugins/broadcast_old`](plugins/broadcast_old.py) -> [`plugins/broadcast`](plugins/broadcast.py)
-On va passer d'un stockage des messages plutôt volatille dans une variable à stocké dans la db.
 ### Events:
-- [ ] ~~`on_message`~~ -> `on_reaction_add`: plus ergonomique et plus rapide
-    - sdlm: envoit un message à tous les membres de l'inscrit dans la db du jdsdlm
-    - sb: envoit un message à tous les membres de l'inscrit dans la db du starbotch
-    - botchnews: envoit une annonce dans botchnews
+- [ ] `on_message`: pour le msg de confirmation, être sur de pas ping 1k personne pour r
 
 ### Commands:
-## [`DataBaseAccess`](DataBaseAccess.py) -> [`plugins/database`](plugins/database.py)
-Rien n'est à garder, on passe sur une db en ORM donc il faut juste faire des méthodes d'accès à la db.
-- [x] `get_member`: récupère les données un membre du serveur
-- 
-- [x] `get_member_sb_by_id`: récupère les données d'un message dans le starbotch par id
-- [x] `get_sb_by_stars`: récupère les données d'un message dans le starbotch par nombre de stars
-- [x] `create_sb`: rajoute un msg dans le starbotch
-- [x] `modify_sb`: modifie le nombre de stars d'un msg dans le starbotch
-- [x] `remove_sb`: retire un msg du starbotch
-- 
-- [x] `create_broadcast`: rajoute un msg dans la db des messages à envoyer
-- [x] `modify_broadcast`: modifie un msg dans la db des messages à envoyer
-- [x] `get_broadcast`: récupère les msgs de la db des messages à envoyer d'un utilisateur
-- [x] `remove_broadcast`: retire un msg de la db des messages à envoyer
-<p>Je veux ensuite foutre le leaderboard du sdlm et sb dedans pour pas à avoir à reload les Cogs individuellement et
-reload uniquement celui là</p>
+- [ ] `broadcast`:
+  - [ ] `annonce`: envoie un message dans le channel d'annonce
+  - [ ] `sdlm`: envoie un message à tout les participant du jdsdlm
+  - [ ] `example`: envoie un message d'exemple
 
 ## [`plugins/dev_old`](plugins/dev_old.py) -> [`plugins/dev`](plugins/broadcast.py)
+- [ ] `reload`: reload les plugins ou le plugin si précisé
+- [ ] `mp`: envoie un mp à un utilisateur
+- [ ] `ping`: pong !
+
 ## [`plugins/errors_old`](plugins/errors_old.py) -> [`plugins/errors`](plugins/errors.py)
-## [`plugins/general_old`](plugins/general_old.py) -> [`plugins/dev`](plugins/general.py)
+flm
+
+## [`plugins/general_old`](plugins/general_old.py) -> [`plugins/general`](plugins/general.py)
+### Events:
+- [ ] `on_message`:
+  - check si quelqu'un ping everyone pour l'harceler en dm
+  - compte les boris et rajoute au compteur de boris (je suis meme pas sûr que ça marche)
+
+### Commands:
+- [ ] `citation`: affiche une citation aléatoire
+- [ ] `tipeee`: affiche le lien tipeee
+- [ ] `info`: affiche des informations sur le bot
+- [ ] `suntzu`: affiche une citation de Sun Tzu
+
 ## [`plugins/loops_old`](plugins/loops_old.py) -> [`plugins/loops`](plugins/loops.py)
-## [`plugins/memes_old`](plugins/memes_old.py) -> [`plugins/dev`](plugins/memes.py)
+### Events:
+- [ ] `do_a_backflip`: fait une backup de la database toutes les 24h
+
+### Commands:
+- [ ] `loop`:
+  - [ ] `reload`: démarre une loop
+  - [ ] `doabackup`: fait une backup de la database
+  - 
+## [`plugins/memes_old`](plugins/memes_old.py) -> [`plugins/memes`](plugins/memes.py)
+Je crois que ça se base sur l'api de reddit et vu que c'est finito on vera plus tard
+### Commands:
+- [ ] `meme`: affiche un meme aléatoire
+
 ## [`plugins/rolereact_old`](plugins/rolereact_old.py) -> [`plugins/rolereact`](plugins/rolereact.py)
+### Events:
+- [ ] `on_raw_reaction_add`: ajoute un role à un utilisateur
+- [ ] `on_raw_reaction_remove`: enlève un role à un utilisateur
+
+### Commands:
+- [ ] `rolereact`:
+  - [ ] `example`: affiche un exemple de message rolereact
+  - [ ] `setup`: setup un message rolereact
+  - [ ] `delete`: supprime un message rolereact
+  - [ ] `status`: affiche les msg de rolereact (affiche les role du message si message précisé)
+  - [ ] `add_role`: ajoute un role au message
+  - [ ] `remove_role`: enlève un role au message
+  - 
 ## [`plugins/sdlm_old`](plugins/sdlm_old.py) -> [`plugins/sdlm`](plugins/sdlm_old.py)
+### Events:
+- [ ] `on_raw_reaction_add`: valide le point et passe le role de posteur au gagnant
+- [ ] `on_member_ban`: reset le score du banni
+- [ ] `on_message`: si le posteur post une image, elle se fait pin et devient l'indice principal
+
+### Commands:
+- [ ] `sdlm`:
+  - [ ] `leaderboard`: affiche le leaderboard
+  - [ ] `score`: affiche le score du joueur
+  - [ ] `tienskop1`: passe le role de posteur au joueur
+  - [ ] `posteur`: affiche le posteur actuel
+  - [ ] `load_backup`: charge une backup
+  - [ ] `reload`: reload le jeu (bug après le reload du plugin, à voir si je peux faire qqch)
+  - [ ] `set_img`: set l'image de l'indice
+
 ## [`plugins/starbotch_old`](plugins/starbotch_old.py) -> [`plugins/starbotch`](plugins/starbotch.py)
+### Events:
+- [ ] `on_raw_reaction_add`: tout le dawa quand on le met dans le starbotch (ou update le nombre de stars)
+- [ ] `on_raw_reaction_remove`: tout le dawa quand on le retire du starbotch (ou update le nombre de stars)
+
+### Commands:
+- [ ] `starbotch`:
+  - [ ] `leaderboard`: affiche le leaderboard
+  - [ ] `reload`: reload le starbotch (bug après le reload du plugin, à voir si je peux faire qqch)
+  - [ ] `random`: affiche un message random du starbotch
+
 ## [`plugins/vocal_old`](plugins/vocal_old.py) -> [`plugins/vocal`](plugins/vocal.py)
+Faut coder un bot music, on vera si ça tient tjrs. Ou je calerai un synthétiseur vocal dessus.
